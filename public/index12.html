@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Index12 </title>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>
+    <style>
+        :root {
+            --task-brd-color: yellow;
+            --task-id-color: blue;
+            --task-quest-color: red;
+            --task-amount-color: green
+        }
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        #task-list {
+            display: flex;
+            flex-direction: row;
+            width: 70vw;
+            justify-content: space-around;
+            margin: 0 auto;
+        }
+        .task {
+            width: 30%;
+            padding: 0.2rem;
+            display: flex;
+            flex-direction: column;
+            border: 0.1rem var(--task-brd-color) solid;
+        }
+        .task * {
+            padding: 2px;
+            margin: 0.2rem;
+        }
+        .task :first-child {
+            border: 2px var(--task-id-color) solid;
+            font-size: 24px;
+            color: var(--task-id-color);
+            font-weight: bold;
+        }
+        .task :nth-child(2) {
+            border: 2px var(--task-quest-color) solid;
+            font-size: inherit;
+            color: var(--task-quest-color);
+        }
+        .task :nth-child(3) {
+            border: 2px solid var(--task-amount-color);
+            color: var(--task-amount-color);
+            font-size: inherit;
+        }
+    </style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+    (function () {
+
+        class Task extends React.Component {
+            render() {
+                return (<div className="task">
+                    <div>id: {this.props.value.id}</div>
+                    <div>zadanie:<br/>{this.props.value.action} -> {this.props.value.name}</div>
+                    <div>ile: {this.props.value.quantity}</div>
+                </div>);
+            }
+        }
+
+        let arr = [
+            {
+                id: 1,
+                quantity: 2,
+                name: "masło" ,
+                action: "kupić"
+            },
+            {
+                id: 2,
+                quantity: 2,
+                name: "Lol" ,
+                action: "kupić"
+            },
+            {
+                id: 3,
+                quantity: 2,
+                name: "TETTET" ,
+                action: "braść"
+            }
+        ];
+
+        class TaskList extends React.Component {
+            render() {
+                let list;
+                list = this.props.list.map((value, index) => {
+                    return (
+                        <Task value={value} key={index}/>
+                    )
+                });
+                return (
+                    <div id="task-list">
+                        {list}
+                    </div>
+                );
+            }
+
+        }
+        ReactDOM.render(<TaskList list={arr} />, document.querySelector('#root'))
+    })()
+</script>
+</body>
+</html>
