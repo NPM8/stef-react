@@ -56,6 +56,7 @@ http.createServer((req, res) => {
         res.end();
       }
     } else {
+      res.setHeader('Access-Control-Allow-Origin', '*');
       res.writeHead(200, { 'Content-Type': contentType });
       res.end(content, 'utf-8');
     }

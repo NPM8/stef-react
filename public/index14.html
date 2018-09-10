@@ -5,12 +5,87 @@
     <title>Index12 </title>
     <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/6.1.19/browser.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.24/browser.min.js"></script>
 </head>
 <body>
 <div id="root"></div>
-<script type="text/bable">
-    
+<script type="text/babel">
+   'use strict';
+   (function () {
+       class Square extends React.Component {
+           render() {
+               return (<div style={{
+                   width: '50px',
+                   height: 'auto',
+                   paddingLeft: '10px',
+                   paddingRight: '10px',
+                   paddingBottom: '40px',
+                   fontSize: '20px',
+                   textAlign: "center",
+                   color: 'white',
+                   background: 'green',
+                   margin: '2px',
+               }}>{this.props.text}</div>);
+           }
+       }
+
+       class Column extends React.Component {
+           render() {
+               let list = [];
+               for (let i = 0; i < this.props.sqAmount; i++) {
+                   list.push((<Square text={this.props.sqText} key={"s"+i}/>))
+               }
+               return (<div style={{width: 'auto',
+                   height: 'auto',
+                   display: 'flex',
+                   flexDirection: 'column',
+                   padding: '2px',
+                   margin: '2px',
+                   border:  '#8328E0 2px solid'}}
+               >{list}</div>);
+           }
+       }
+
+       class Table extends React.Component {
+           render() {
+               let list = [];
+               for (let i = 0; i < this.props.colAmount; i++) {
+                   list.push((<Column sqAmount={this.props.sqAmount} sqText={this.props.sqText} key={"c"+i}/>))
+               }
+               return (<div style={{width: 'auto',
+                   height: 'auto',
+                   display: 'flex',
+                   flexWrap: 'wrap',
+                   flexDirection: 'row',
+                   padding: '2px',
+                   margin: '2px',
+                   border:  '#FBD701 2px solid'
+               }}>{list}</div>);
+           }
+       }
+
+       class Container extends React.Component {
+           render() {
+               let list = [];
+               for (let i = 0; i < this.props.tabAmount; i++) {
+                   list.push((<Table colAmount={this.props.colAmount} sqAmount={this.props.sqAmount} sqText={this.props.sqText} key={"t"+i}/>))
+               }
+               return (<div style={{
+                   width: 'auto',
+                   height: 'auto',
+                   display: 'flex',
+                   flexWrap: 'wrap',
+                   // maxWidth: '90vw',
+                   justifyContent: 'center',
+                   flexDirection: 'row',
+                   margin: '2px',
+                   border:  '#FD0100 2px solid'
+               }}>{list}</div>);
+           }
+       }
+
+       ReactDOM.render(<div style={{display: 'flex'}}><Container tabAmount="3" colAmount="3" sqAmount="3" sqText={"React \n comp"}/></div>, document.getElementById("root"))
+   })()
 </script>
 </body>
 </html>
